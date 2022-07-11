@@ -1,0 +1,11 @@
+SECRET_KEY = django-insecure-*
+DB_NAME= dbname
+DB_USER= root
+DB_PASS= 12345678
+DB_HOST= 127.0.0.1
+DB_PORT= 3306
+
+EMAIL_HOST_USER=user@gmail.com
+EMAIL_HOST_PASSWORD=password
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT = 587

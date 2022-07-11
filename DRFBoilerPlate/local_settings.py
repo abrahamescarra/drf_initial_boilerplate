@@ -10,13 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
-
+from pathlib import Path,os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,15 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'default')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',
-'127.0.0.1',
- #HOST_IP
- #HOST_NAME
- 'subdomain.domain.com']
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -44,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     #custom
+    #custom
     'customauth',
     'content',
     'rest_framework',
@@ -65,49 +57,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-
-CORS_ORIGIN_WHITELIST = (
-       'https://subdomain.domain.com:443',
-       'https://subdomain.domain.com:443',
-       'https://domain.com:443',
-       'https://subdomain.domain.com',
-       'https://subdomain.domain.com',
-       'https://domain.com',
-       'http://subdomain.domain.com:443',
-       'http://domain.com:443',
-       'http://subdomain.domain.com',
-       'http://domain.com',
-       'http://127.0.0.1:443',
-       'http://127.0.0.1:3000',
-       'https://127.0.0.1:443',
-    #    'https://IP:443',
-    #    'https://IP',
-    #    'http://IP',
-       'https://127.0.0.1:3000',
-       'http://127.0.0.1:8000',
-       'http://127.0.0.1',
-)
-
-#Sessiones
-CSRF_TRUSTED_ORIGINS = [
-    'subdomain.domain.com',
-    'subdomain.domain.com/*',
-    'domain.com',
-    '127.0.0.1',
-    ]
 
 ALLOWED_IP=[
     '127.0.0.1',
-    'localhost',
-    # 'IP',
-    # 'IP:443'
+    'localhost'
 ]
 
 DCS_SESSION_COOKIE_SAMESITE = None
 DCS_SESSION_COOKIE_SAMESITE_FORCE_CORE = False
-DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
+DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = False
 
 
 ROOT_URLCONF = 'DRFBoilerPlate.urls'
@@ -149,8 +109,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-AUTH_USER_MODEL = "customauth.CustomUser"
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -179,15 +137,22 @@ USE_I18N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = "customauth.CustomUser"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/user/api.domain.com/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, ""),]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/user/api.domain.com/media'
+MEDIA_URL='/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR,'media')
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'default')
@@ -196,16 +161,3 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'default')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'default')
 EMAIL_USE_TLS = True
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Ensures that requests over HTTP are redirected to HTTPS
-SECURE_SSL_REDIRECT = True
-
-# Tells browser to only send cookies over HTTPS
-SESSION_COOKIE_SECURE = True
-
-# Prevents cross site request forgery attacks
-CSRF_COOKIE_SECURE = True

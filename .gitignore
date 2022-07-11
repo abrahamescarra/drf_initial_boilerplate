@@ -1,2 +1,12 @@
 Pipfile
 .env
+#/DRFBoilerPlate/local_settings.py
+/media
+/customauth/__pycache__
+/customauth/migrations/__pycache__
+/customauth/migrations/00*
+/DRFBoilerPlate/__pycache__
+/api_trucks/static
+/content/__pycache__
+/content/migrations/__pycache__
+/content/migrations/00*
